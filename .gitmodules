@@ -1,0 +1,3 @@
+[submodule "lib/StreamSampler"]
+	path = lib/StreamSampler
+	url = https://github.com/LiorKogan/StreamSampler.git

@@ -18,8 +18,7 @@ int main(int argc, char *argv[])
 		assert(sample_sets[0].size() == sample_count);
 		const auto& sampled_path = sample_sets[0][0];
 		std::cout << sampled_path << "\n";
-	}
-	else {
+	} else {
 		std::cout << "directory " << source_dir << " does not exist\n";
 	}
 	return 0;

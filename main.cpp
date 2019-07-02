@@ -8,14 +8,19 @@ int main(int argc, char *argv[])
 	const auto sample_count = std::size_t {1};
 	StreamSampler::CStreamSamplerWOR_R0<std::string> sampler {sample_sets_count, sample_count};
 	const auto source_dir = argc > 1 ? argv[1] : ".";
-	boost::filesystem::directory_iterator it {source_dir};
-	for (const auto& p : it) {
-		sampler.AddElement(std::move(p.path().string()));
+	if (boost::filesystem::exists(source_dir)) {
+		boost::filesystem::directory_iterator it {source_dir};
+		for (const auto& p : it) {
+			sampler.AddElement(std::move(p.path().string()));
+		}
+		const auto sample_sets = sampler.GetSampleSets();
+		assert(sample_sets.size() == sample_sets_count);
+		assert(sample_sets[0].size() == sample_count);
+		const auto& sampled_path = sample_sets[0][0];
+		std::cout << sampled_path << "\n";
 	}
-	const auto sample_sets = sampler.GetSampleSets();
-	assert(sample_sets.size() == sample_sets_count);
-	assert(sample_sets[0].size() == sample_count);
-	const auto& sampled_path = sample_sets[0][0];
-	std::cout << sampled_path << "\n";
+	else {
+		std::cout << "directory " << source_dir << " does not exist\n";
+	}
 	return 0;
 }

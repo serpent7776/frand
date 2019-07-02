@@ -6,9 +6,9 @@ int main(int argc, char *argv[])
 {
 	const auto sample_sets_count = std::size_t {1};
 	const auto sample_count = std::size_t {1};
-	StreamSampler::CStreamSamplerWOR_R0<std::string> sampler {sample_sets_count, sample_count};
 	const auto source_dir = argc > 1 ? argv[1] : ".";
 	if (boost::filesystem::exists(source_dir)) {
+		StreamSampler::CStreamSamplerWOR_R0<std::string> sampler {sample_sets_count, sample_count};
 		boost::filesystem::directory_iterator it {source_dir};
 		for (const auto& p : it) {
 			sampler.AddElement(std::move(p.path().string()));
